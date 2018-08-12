@@ -1,0 +1,362 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <style>
+    h3 {
+      color: navy;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+    h4 {
+      color: palevioletred;
+    }
+    h2 {
+      text-align: center;
+    }
+    p {
+      background-color: antiquewhite;
+    }
+    #btn {
+      border-radius: 50%;
+      background-color: tomato;
+      color: black;
+      border: 2px solid black;
+    }
+    #btn:hover {
+      border-radius: 50%;
+      background-color: crimson;
+      color: black;
+      border: 2px solid black;
+    }
+    #bt {
+      border-radius: 50%;
+      background-color: coral;
+      color: black;
+      border: 2px solid black;
+    }
+    #bt:hover {
+      border-radius: 50%;
+      background-color: crimson;
+      color: black;
+      border: 2px solid black;
+    }
+  </style>
+</head>
+<body>
+  <div data-role="page" id="pageone" data-theme="b" data-dialog="true" data-close-btn="none">
+    <div data-role="header">
+      <a href="#addwhat" data-transition="slide" data-icon="plus" class="ui-btn-right">Add new</a>
+      <h1>Movie Wiki</h1>
+    </div>
+    <div data-role="main" class="ui-content">
+      <form class="ui-filterable">
+        <input id="dta" data-type="search">
+      </form>
+      <ul data-role="listview" data-filter="true" data-input="#dta" id="dt"></ul>
+    </div>
+  </div>
+  <div data-role="page" id="addwhat" data-theme="a" data-dialog="true">
+    <div data-role="header">
+      <h1>What do you want to add?</h1>
+    </div>
+    <div data-role="main" class="ui-content">
+      <a href="#add" data-transition="slide" data-icon="plus" class="ui-btn-left">Add movie</a>
+      <a href="#song" data-transition="slide" data-icon="plus" class="ui-btn-right">Add song</a>
+    </div>
+  </div>
+  <div data-role="page" id="page2" data-theme="a" data-dialog="true">
+    <div data-role="header">
+      <a href="#pageone" data-transition="slide" data-direction="reverse" data-icon="back" onclick="parent.location.reload();">Back</a>
+      <h1 style="color: maroon; font-weight: bold" id="movname"></h1>
+    </div>
+    <div data-role="main" class="ui-content">
+        <img src="images/" id="ige" style="float: right;padding: 1px;border: 1px solid;height: 300px;width: 200px">   
+      <h3>Director</h3>
+      <h4 id="dirname"></h4>
+      <h3>Producer</h3>
+      <h4 id="proname"></h4>
+      <h3>Story By</h3>
+      <h4 id="story"></h4>
+      <h3>Starring</h3>
+      <h4 id="str"></h4>
+      <h3>Release Date</h3>
+      <h4 id="rlsdate"></h4>
+      <h3>Music Director</h3>
+      <h4 id="mdname"></h4>
+      <h3>Songs</h3>
+      <ul data-role="listview" id="sg" data-theme="a"></ul>
+    </div>
+  </div>
+  <div data-role="page" id="page3" data-theme="a" data-dialog="true">
+    <div data-role="header">
+      <a href="#pageone" data-transition="slide" data-direction="reverse" data-icon="back" onclick="parent.location.reload();">Back</a>
+      <h1 style="color: maroon; font-weight: bold" id="songname"></h1>
+    </div>
+    <div data-role="main" class="ui-content">
+      <h3>Singer</h3>
+      <h4 id="s"></h4>
+      <h3>Lyricist</h3>
+      <h4 id="l"></h4>
+    </div>
+  </div>
+  <div data-role="page" id="add" data-theme="a|b" data-dialog="true">
+    <div data-role="header">
+      <a href="#pageone" data-transition="slide" data-direction="reverse" data-icon="back" onclick="parent.location.reload();">Back</a>
+      <h1>Add new movie</h1>
+    </div>
+    <div data-role="main" class="ui-content" style="background: #000;">
+      <div class="addtoast">Record Added</div>
+      <style type="text/css">
+        .addtoast {
+          background: rgba(0, 0, 0, .7);
+          width: 35%;
+          padding: 5px;
+          border-radius: 360px;
+          text-align: center;
+          color: #FFF;
+          display: none;
+          position: fixed;
+          bottom: 5px;
+          margin: 0px auto;
+        }
+      </style>
+      <div class="checktoast">Please fill up all the fields</div>
+      <style type="text/css">
+        .checktoast {
+          background: red;
+          width: 35%;
+          padding: 5px;
+          border-radius: 360px;
+          text-align: center;
+          color: #FFF;
+          display: none;
+          position: fixed;
+          bottom: 5px;
+          margin: 0px auto;
+        }
+      </style>
+      <form action="" method="post" id="frm" enctype="multipart/form-data">
+        <p><input type="text" name="mname" id="mname" placeholder="Movie Name"></p>
+        <p><input type="text" name="dname" id="dname" placeholder="Director"></p>
+        <p><input type="text" name="pname" id="pname" placeholder="Producer"></p>
+        <p><input type="text" name="story" id="story" placeholder="Story By"></p>
+        <p><input type="text" name="cast" id="cast" placeholder="Starring"></p>
+        <p><input type="text" name="rd" id="rd" placeholder="Release Date"></p>
+        <p><input type="text" name="md" id="md" placeholder="Music Director"></p>
+        <p><input type="file" name="files" id="files"></p>
+        <h2><input type="button" id="btn" value="Add"></h2>
+      </form>
+    </div>
+  </div>
+  <div data-role="page" id="song" data-theme="a|b" data-dialog="true">
+    <div data-role="header">
+      <a href="#pageone" data-transition="slide" data-direction="reverse" data-icon="back" onclick="parent.location.reload();">Back</a>
+      <h1>Add new song</h1>
+    </div>
+    <div data-role="main" class="ui-content" style="background: #000;">
+      <div class="songtoast">Record Added</div>
+      <style type="text/css">
+        .songtoast {
+          background: rgba(0, 0, 0, .7);
+          width: 35%;
+          padding: 5px;
+          border-radius: 360px;
+          text-align: center;
+          color: #FFF;
+          display: none;
+          position: fixed;
+          bottom: 5px;
+          margin: 0px auto;
+        }
+      </style>
+      <div class="check">Please fill up all the fields</div>
+      <style type="text/css">
+        .check {
+          background: red;
+          width: 35%;
+          padding: 5px;
+          border-radius: 360px;
+          text-align: center;
+          color: #FFF;
+          display: none;
+          position: fixed;
+          bottom: 5px;
+          margin: 0px auto;
+        }
+      </style>
+      <form action="" method="post" id="frm2" enctype="multipart/form-data">
+        <p><input type="text" name="sname" id="sname" placeholder="Song Name"></p>
+        <p><select name="movname" id="movname">
+            <option></option>
+            <option value="ANJAAM">Anjaam</option>
+            <option value="BAAZIGAR">Baazigar</option>
+            <option value="BAADSHAH">Baadshah</option>
+            <option value="CHAK DE! INDIA">Chak De! India</option>
+            <option value="DDLJ">DDLJ</option>
+            <option value="DEVDAS">Devdas</option>
+            <option value="DON">Don</option>
+            <option value="DILWALE">Dilwale</option>
+            <option value="ENGLISH BABU DESI MEM">English Babu Desi Mem</option>
+            <option value="FAN">Fan</option>
+            <option value="GUDDU">Guddu</option>
+            <option value="HAPPY NEW YEAR">Happy New Year</option>
+            <option value="JOSH">Josh</option>
+            <option value="KUCH KUCH HOTA HAI">KKHH</option>
+            <option value="KABHI KHUSI KABHIE GHAM...">K3G</option>
+            <option value="MOHABBATEIN">Mohabbatein</option>
+            <option value="MY NAME IS KHAN">My Name Is Khan</option>
+            <option value="OM SHANTI OM">Om Shanti Om</option>
+            <option value="PARDES">Pardes</option>
+            <option value="RA.ONE">Ra.One</option>
+            <option value="RAEES">Raees</option>
+            <option value="RAB NE BANA DI JODI">Rab Ne Bana Di Jodi</option>
+            <option value="SWADES">Swades</option>
+            <option value="TRIMURTI">Trimurti</option>
+            <option value="VEER-ZAARA">Veer-Zaara</option>
+            <option value="YES BOSS">Yes Boss</option>
+            <option value="ZERO">Zero</option>
+          </select>Movie Name</p>
+        <p><input type="text" name="singer" id="singer" placeholder="Singer"></p>
+        <p><input type="text" name="lyrics" id="lyrics" placeholder="Lyricist"></p>
+        <h2><input type="button" id="bt" value="Add"></h2>
+      </form>
+    </div>
+  </div>
+  <script type="text/javascript">
+    $('#btn').click(function () {
+      var mn = document.getElementById('mname').value;
+      var dr = document.getElementById('dname').value;
+      var pd = document.getElementById('pname').value;
+      var st = document.getElementById('story').value;
+      var ct = document.getElementById('cast').value;
+      var rd = document.getElementById('rd').value;
+      var md = document.getElementById('md').value;
+      if (mn == '' || dr == '' || pd == '' || st == '' || ct == '' || rd == '' || md == '') {
+        $('.checktoast').fadeIn(1000);
+        setTimeout(function () {
+          $('.checktoast').fadeOut(1000);
+        }, 2000);
+      } else {
+        var form = $('#frm')[0];
+        var data = new FormData(form);
+        var url = 'add.php';
+        $.ajax({
+          url: url,
+          type: "POST",
+          enctype: 'multipart/form-data',
+          data: data,
+          processData: false,
+          contentType: false,
+          cache: false,
+          timeout: 600000,
+          success: function (result) {
+            document.getElementById("frm").reset();
+            $('.addtoast').fadeIn(1000);
+            setTimeout(function () {
+              $('.addtoast').fadeOut(1000);
+              $.mobile.changePage("#add", {
+                transition: "slide",
+                changeHash: false
+              });
+            }, 2000);
+          },
+          error: function (request, error) {
+            alert('Network error has occurred please try again!');
+          }
+        });
+      }
+    });
+    $('#bt').click(function () {
+      var song = document.getElementById('sname').value;
+      var mn = document.getElementById('movname').value;
+      var singer = document.getElementById('singer').value;
+      var l = document.getElementById('lyrics').value;
+      if (song == '' || mn == '' || singer == '' || l == '') {
+        $('.check').fadeIn(1000);
+        setTimeout(function () {
+          $('.check').fadeOut(1000);
+        }, 2000);
+      } else {
+        var form = $('#frm2').serialize();
+        var url = 'songadd.php';
+        $.ajax({
+          url: url,
+          type: "POST",
+          dataType: "json",
+          data: form,
+          async: true,
+          success: function (result) {
+            document.getElementById("frm2").reset();
+            $('.songtoast').fadeIn(1000);
+            setTimeout(function () {
+              $('.songtoast').fadeOut(1000);
+              $.mobile.changePage("#song", {
+                transition: "slide",
+                changeHash: false
+              });
+            }, 2000);
+          },
+          error: function (request, error) {
+            alert('Network error has occurred please try again!');
+          }
+        });
+      }
+    });
+    function getParameterByName(name, url) {
+      if (!url) url = window.location.href;
+      name = name.replace(/[\[\]]/g, "\\$&");
+      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+    $.getJSON("json.php", function (data) {
+      $.each(data, function (key, val) {
+        $("#dt").append("<li><a href='#page2?movname=" + val.Movie_name + "&dirname=" + val.Director + "&proname=" + val.Producer + "&story=" + val.Story_by + "&str=" + val.Starring + "&rlsdate=" + val.Release_date + "&mdname=" + val.Music_director + " &ige=" + val.image + "' data-transition='slide'><img src='images/" + val.image + "' style='border-radius: 50%; width:200px'> " + val.Movie_name + "</a></li>");
+      });
+      $('#dt').listview('refresh');
+    });
+      $(document).on("pagecontainerbeforetransition", function (e, data) {
+      if ($.type(data.toPage) !== "undefined" && $.type(data.absUrl) !== "undefined" && data.toPage[0].id == "page2") {
+        var movname = getParameterByName('movname', data.absUrl);
+        var dirname = getParameterByName('dirname', data.absUrl);
+        var proname = getParameterByName('proname', data.absUrl);
+        var story = getParameterByName('story', data.absUrl);
+        var cast = getParameterByName('str', data.absUrl);
+        var rlsdate = getParameterByName('rlsdate', data.absUrl);
+        var mdname = getParameterByName('mdname', data.absUrl);
+        var ige = getParameterByName('ige', data.absUrl);
+        document.getElementById("movname").innerHTML = movname;
+        document.getElementById("dirname").innerHTML = dirname;
+        document.getElementById("proname").innerHTML = proname;
+        document.getElementById("story").innerHTML = story;
+        document.getElementById("str").innerHTML = cast;
+        document.getElementById("rlsdate").innerHTML = rlsdate;
+        document.getElementById("mdname").innerHTML = mdname;
+        document.getElementById('ige').src = "images/".concat(ige);
+        $.getJSON("jsonn.php?movname="+ movname, function (data) {
+        $.each(data, function (key, val) {
+        $("#sg").append("<li><a href='#page3?songname=" + val.Song_name + "&s=" + val.Singer + "&l=" + val.Lyrics + "' data-transition='slide'>" + val.Song_name + "</a></li>");
+      });
+      $('#sg').listview('refresh');
+    });
+      }
+    });
+    $(document).on("pagecontainerbeforetransition", function (e, data) {
+      if ($.type(data.toPage) !== "undefined" && $.type(data.absUrl) !== "undefined" && data.toPage[0].id == "page3") {
+        var songname = getParameterByName('songname', data.absUrl);
+        var s = getParameterByName('s', data.absUrl);
+        var l = getParameterByName('l', data.absUrl);
+        document.getElementById("songname").innerHTML = songname;
+        document.getElementById("s").innerHTML = s;
+        document.getElementById("l").innerHTML = l;
+      }
+    });
+  </script>
